@@ -11,11 +11,10 @@ const vehicleSchema = new Schema({
   transmissionType : {type: String, required : true},
   fuelType : {type: String, required : true},
   price : {type: Number, required : true},
- // insurancegeImg : [{ type: Schema.Types.ObjectId, ref: 'Image', required : true }],
- // vehicleImg : [{ type: Schema.Types.ObjectId, ref: 'Image', required : true }],
-
+  insuranceImgs: [{ type: String, required : true }],
+  vehicleMainImg: {type : String, required : true},
+  vehicleImgs: [{ type: String, required : true }]
   
 });
 
 module.exports = mongoose.model('Vehicle', vehicleSchema);
-//module.exports = Vehicle;

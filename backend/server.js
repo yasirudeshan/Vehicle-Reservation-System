@@ -1,9 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const multer = require("multer");
 const app = express();
-const upload = multer();
+
 
 const dbConnect = require("./dbConnect");
 

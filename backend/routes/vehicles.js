@@ -7,4 +7,5 @@ const vehicleController = require("../controllers/vehicleController");
 router.route("/").post(vehicleController.addVehicle); //add a new vehicle
 
 
+
 module.exports = router;
