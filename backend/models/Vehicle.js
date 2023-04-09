@@ -1,11 +1,14 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const {mongoose, Schema} = require("mongoose");
+// const fs = require("fs");
+// const path = require("path");
 
 const vehicleSchema = new Schema({
 
   ownerName: {type: String, required : true}, 
   brand: {type: String, required : true},
   model: {type: String, required : true},
+  vehicleType : {type : String, required : true},
+  userId : {type : String, required : true},
   vehicleNumber : {type: String, required : true},
   capacity : {type: Number, required : true},
   transmissionType : {type: String, required : true},
@@ -16,5 +19,25 @@ const vehicleSchema = new Schema({
   vehicleImgs: [{ type: String, required : true }]
   
 });
+
+
+// vehicleSchema.pre('remove', function(next) {
+//   const vehicle = this;
+//   fs.unlink(path.join(__dirname, '..', 'images', vehicle.vehicleMainImg), (err) => {
+//     if (err) console.log(err);
+//   });
+//   vehicle.insuranceImgs.forEach((img) => {
+//     fs.unlink(path.join(__dirname, '..', 'images', img), (err) => {
+//       if (err) console.log(err);
+//     });
+//   });
+//   vehicle.vehicleImgs.forEach((img) => {
+//     fs.unlink(path.join(__dirname, '..', 'images', img), (err) => {
+//       if (err) console.log(err);
+//     });
+//   });
+//   next();
+// });
+
 
 module.exports = mongoose.model('Vehicle', vehicleSchema);
