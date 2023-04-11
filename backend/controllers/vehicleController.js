@@ -1,6 +1,7 @@
 const multer = require("multer");
 const Vehicle = require("../models/Vehicle");
-const path = require("path")
+const AcceptedVehicle = require("../models/AcceptedVehicle");
+const path = require("path");
 
 //image uploading path to diskStorage
 const storage = multer.diskStorage({
@@ -69,6 +70,17 @@ exports.getAllVehicle = async(req, res) => {
 }
 
 
+//get all accepted vehicles - vehicle admin
+exports.getAllAcceptedVehicle = async(req, res) => {
+  try{
+      const vehicles = await AcceptedVehicle.find();
+      res.send(vehicles);
+  }catch (err) {
+      res.status(500).send(err.message);
+  }
+}
+
+
 
 //get a specific vehicle by id - vehicle admin
 exports.getSpecificvehicle = async(req, res) => {
@@ -83,7 +95,7 @@ exports.getSpecificvehicle = async(req, res) => {
 
 
 
-//delete a specific vehicle by id - vehicle admin
+//delete a specific vehicle by id (Reject a vehicle from pending collection) - vehicle admin
 exports.deleteVehicle = async (req, res) => {
     const { id } = req.params;
     try {
@@ -99,11 +111,73 @@ exports.deleteVehicle = async (req, res) => {
   };
 
 
+//send accepted vehicle details to another collection - vehicle admin 
+exports.acceptVehicle = async(req, res) => {
+    const {id} = req.params;
+    try{
+        const vehicle = await Vehicle.findById(id);
+        const acceptedVehicleDetails = new acceptedVehicle({
+            ...vehicle._doc //spread operator to get all the properties of the vehicle object. use _doc to avoid unwanted metadata to copy to new object.
+        })
+        await acceptedVehicleDetails.save();
+        await Vehicle.findByIdAndDelete(id);
+        res.send(acceptedVehicleDetails);
 
+        // Return success message
+        return "Vehicle accepted successfully!";
+
+  }catch(err){
+      res.status(500).send(err.message);
+  }
+}
+
+
+//retrieve all my vehicle details - vehicle owner
+exports.getMyVehicles = async(req, res) => {
+    const { userId } = req.params;
+    try{
+        const myVehicles = await Vehicle.find({userId: userId});
+        if(!myVehicles){
+            res.status(404).send("No vehicles found");
+        }
+        res.send(myVehicles);
+    }catch{
+        res.status(500).send(err.message);
+    }
+}
+
+
+//retrieve a specific vehicle details - vehicle owner             userId and id both consider?
+exports.getMyOneVehicle = async(req, res) => {
+  const { id, userId } = req.params;
+  try{
+      const myVehicle = await Vehicle.findOne({ $and: [{ id }, { userId }] });
+      if(!myVehicle){
+          res.status(404).send("Vehicle not found");
+      }
+      res.send(myVehicle);
+  } catch(err){
+      res.status(500).send(err.message);
+  }
+}
+
+
+
+//edit a specific vehicle details - vehicle owner 
+exports.updateVehicle = async (req, res) => {
+  const { id } = req.params;
+  const  update = {price, description } = req.body;   //add description
+
+  try {
+    const updatedVehicle = await AcceptedVehicle.findByIdAndUpdate(id, update, { new: true });
+    res.send(updatedVehicle);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
 
 
 //retrieve all vehicle details as a tourist
 
-//retrieve all my vehicles
 
-//retrieve vehicle information based on the vehicle owner should be considered when implementing the function.
+
