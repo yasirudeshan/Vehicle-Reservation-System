@@ -3,12 +3,12 @@ const vehicleController = require("../controllers/vehicleController");
 
 router
         .route("/")
-        .get(vehicleController.getAllAcceptedVehicle)   //get all vehicles - vehicle admin    //not working
+        .get(vehicleController.getAllAcceptedVehicle)   //get all vehicles - vehicle admin   
 
 
 router
         .route("/:id")
-        .patch(vehicleController.updateVehicle) //update a vehicle - vehicle owner     (accepted vehicle)     //not working
+        .patch(vehicleController.updateVehicle) //update a vehicle - vehicle owner     (accepted vehicle)     
 
 
 router

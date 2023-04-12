@@ -1,6 +1,5 @@
 const {mongoose, Schema} = require("mongoose");
-// const fs = require("fs");
-// const path = require("path");
+
 
 const vehicleSchema = new Schema({
 
