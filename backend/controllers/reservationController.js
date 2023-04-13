@@ -75,3 +75,51 @@ exports.deleteReservation = async (req, res) => {
       res.status(500).send(err.message);
     }
   }
+
+
+
+//========================================================================================================
+
+
+//get all reservations - vehicle owner
+exports.getAllReservations = async (req, res) => {
+    
+    const {vehicleOwnerId} = req.params;
+    try{
+        const reservations = await Reservation.find({vehicleOwnerId : vehicleOwnerId});
+        res.send(reservations);
+
+    }catch{
+        res.status(500).send(err.message);
+    }
+}
+
+
+//get a specific reservation - vehicle owner
+exports.getOneReservation = async (req, res) => {
+    
+    const {vehicleOwnerId, _id} = req.params;
+    try{
+        const reservation = await Reservation.findOne({ $and: [{ _id }, { vehicleOwnerId }] });
+        res.send(reservation);
+
+    }catch{
+        res.status(500).send(err.message);
+    }
+}
+
+//update a reservation - vehicle owner
+exports.updateReservation = async (req, res) => {
+
+    const { id } = req.params;
+    const {status} = req.body;
+
+    try{
+        const updateReservationOwner = await Reservation.findByIdAndUpdate(id, {status : status}, {new: true});
+        res.send(updateReservationOwner);
+    }
+    catch {
+        res.status(500).send(err.message);
+    }   
+}
+

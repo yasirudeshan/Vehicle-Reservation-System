@@ -16,6 +16,7 @@ const acceptedVehicleSchema = new Schema({
   insuranceImgs: [{ type: String, required: true }],
   vehicleMainImg: { type: String, required: true },
   vehicleImgs: [{ type: String, required: true }],
+  //location
   
 });
 

@@ -10,8 +10,8 @@ const ReservationSchema = new Schema({
     pickupDate : {type: Date, required: true},
     returnDate : {type: Date, required: true},
     price : {type: Number, required: true},
-    vehicleNumber : {type: String, required: true},
-    status : {type: String, required: true},
+    vehicleOwnerId : {type: String, required: true},
+    status : {type: String, default : "Pending"},
     
 
 });
