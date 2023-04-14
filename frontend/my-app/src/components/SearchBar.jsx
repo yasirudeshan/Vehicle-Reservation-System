@@ -1,46 +1,55 @@
 import React from 'react'
-import { FaAngleDown, FaCar, FaSearchLocation, FaCalendar } from "react-icons/fa";
+import { } from "react-icons/fa";
 
 const searchbar = () => {
   return (
-    <div className='mt-8 shadow-lg max-w-[1240px]  p-4 md:text-left text-center h-full flex flex-col md:flex-row items-center justify-between px-8 mx-auto rounded-lg'>
-      <div className=''>
-        <h3 className='text-[#646464] py-2'>Vehicle Type</h3>
-        <div className='flex border rounded-lg p-2 items-center '>
-            <FaCar/>
-            <h3 className='px-6'>E Vehicles</h3>
-            <FaAngleDown/>
-        </div>
-      </div>
+    <div className='bg-white mt-4 md:mt-[-52px] px-8 shadow-lg max-w-[1240px]  p-4 md:text-left text-center h-full  items-center   mx-auto rounded-lg'>
+        <form className='flex flex-col md:flex-row  justify-between px-4'>
+          <div className='flex flex-col'>
+          <label for ='vehicleType' className='py-3'>Vehicle Type</label>
+          <select className='p-3 border rounded-md w-full'>
+            <option>E-Vehicles</option>
+            <option>Car</option>
+            <option>SUV</option>
+            <option>Van</option>
+            <option>Motor Bike</option>
+            <option>Tuk Tuk</option>
+          </select>
+          </div>
 
-      <div className=''>
-        <h3 className='text-[#646464] py-2'>Pick-up Location</h3>
-        <div className='flex border rounded-lg p-2 items-center'>
-            <FaSearchLocation/>
-            <h3 className='px-6'>Katunayake Airport</h3>
-            <FaAngleDown/>
-        </div>
-      </div>
+          <div className='flex flex-col '>
+            <label for = 'pickupLocation' className='py-3'>Pick-up Location</label>
+            <input type='text' list='fruits' className='border rounded-md p-3 md:w-[300px]' placeholder='Colombo'></input>
 
-      <div className=''>
-        <h3 className='text-[#646464] py-2'>Pick-up Date</h3>
-        <div className='flex border rounded-lg p-2 items-center '>
-            <FaCalendar/>
-            <h3 className='px-6'>14/04/2023</h3>  
-        </div>
-      </div>
+            <datalist id='fruits'>
+              <option value='Colombo'/>
+              <option value = 'Galle'/>
+              <option value = 'Matara'/>
+              <option value = 'Mount Lavinia'/>
+              <option value = 'Kandy'/>
+              <option value = 'Katunayake Airport'/>
+              <option value = 'Negombo'/>
 
-      <div className=''>
-        <h3 className='text-[#646464] py-2'>Return Date</h3>
-        <div className='flex border rounded-lg p-2 items-center '>
-            <FaCalendar/>
-            <h3 className='px-6'>18/04/2023</h3>  
-        </div>
-      </div>
+            </datalist>
+          </div>
 
-      <div className='w-12'>
-        <img src='search.png' alt='searchButton' />
-      </div>
+          <div className='flex flex-col'>
+            <label for = 'pickupDate' className='py-3'>Pick-up Date</label>
+            <input type='date' className='border rounded-md p-3'/>
+          </div>
+
+          <div className='flex flex-col'>
+            <label for = 'returnDate' className='py-3'>Return Date</label>
+            <input type='date' className='border rounded-md p-3'/>
+          </div>
+
+          <div className='w-20 flex items-center'>
+            <button type='submit' className=''>
+            <img src='search.png' alt='searchButton' />
+            </button>
+          </div>
+
+        </form>
 
       
       
