@@ -3,7 +3,7 @@ import React from 'react'
 const VehicleHero = () => {
   return (
     <div className='bg-[#DEEFFF] h-full flex items-center justify-between w-full flex-col md:flex-row'>
-        <div className='p-24'>
+        <div className='p-8 pt-28 md:p-36'>
             <h1 className='text-3xl md:text-5xl font-extrabold uppercase  text-[#272727]'>
                 Fast and easy way to
             </h1>
@@ -14,7 +14,7 @@ const VehicleHero = () => {
             
             <div className='flex py-4 items-center'>
                 <img src='ev.png' className='w-14 h-14' alt='evlogo'/>
-                <h2 className='py-4 font-bold text-2xl px-4'>Try EV and Save Atmosphere</h2>
+                <h2 className='py-4 font-bold text-auto md:text-2xl px-4'>Try EV and Save Atmosphere</h2>
             </div>
         </div>
 

@@ -19,7 +19,7 @@ const searchbar = () => {
 
           <div className='flex flex-col '>
             <label for = 'pickupLocation' className='py-3'>Pick-up Location</label>
-            <input type='text' list='fruits' className='border rounded-md p-3 md:w-[300px]' placeholder='Colombo'></input>
+            <input type='text' list='fruits' className='border rounded-md  p-3 md:w-[300px]' placeholder='Colombo'></input>
 
             <datalist id='fruits'>
               <option value='Colombo'/>
@@ -45,7 +45,8 @@ const searchbar = () => {
 
           <div className='w-20 flex items-center'>
             <button type='submit' className=''>
-            <img src='search.png' alt='searchButton' />
+            <img src='search.png' alt='searchButton' className='hidden md:block' />
+            <h1 className='font-bold md:hidden text-white bg-[#41A4FF] rounded-md p-3 w-auto mt-4  cent'>Button</h1>
             </button>
           </div>
 
