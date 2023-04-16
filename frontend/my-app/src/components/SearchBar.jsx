@@ -4,7 +4,7 @@ import { } from "react-icons/fa";
 const searchbar = () => {
   return (
     <div className='bg-white mt-4 md:mt-[-52px] px-8 shadow-lg max-w-[1240px]  p-4 md:text-left text-center h-full  items-center   mx-auto rounded-lg'>
-        <form className='flex flex-col md:flex-row  justify-between px-4'>
+        <form className='flex flex-col md:flex-row justify-between px-4'>
           <div className='flex flex-col'>
           <label for ='vehicleType' className='py-3'>Vehicle Type</label>
           <select className='p-3 border rounded-md w-full'>
@@ -19,7 +19,7 @@ const searchbar = () => {
 
           <div className='flex flex-col '>
             <label for = 'pickupLocation' className='py-3'>Pick-up Location</label>
-            <input type='text' list='fruits' className='border rounded-md  p-3 md:w-[300px]' placeholder='Colombo'></input>
+            <input type='text' list='fruits' className='border rounded-md  p-3 md:w-[300px] w-full' placeholder='Colombo'></input>
 
             <datalist id='fruits'>
               <option value='Colombo'/>
@@ -35,18 +35,18 @@ const searchbar = () => {
 
           <div className='flex flex-col'>
             <label for = 'pickupDate' className='py-3'>Pick-up Date</label>
-            <input type='date' className='border rounded-md p-3'/>
+            <input type='date' className='border rounded-md p-3 w-full'/>
           </div>
 
           <div className='flex flex-col'>
             <label for = 'returnDate' className='py-3'>Return Date</label>
-            <input type='date' className='border rounded-md p-3'/>
+            <input type='date' className='border rounded-md p-3 w-full'/>
           </div>
 
           <div className='w-20 flex items-center'>
             <button type='submit' className=''>
             <img src='search.png' alt='searchButton' className='hidden md:block' />
-            <h1 className='font-bold md:hidden text-white bg-[#41A4FF] rounded-md p-3 w-auto mt-4  cent'>Button</h1>
+            <h1 className='font-bold md:hidden text-white bg-[#41A4FF] rounded-md p-3 text-center mt-4'>Button</h1>
             </button>
           </div>
 

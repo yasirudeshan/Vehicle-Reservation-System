@@ -16,8 +16,9 @@ const vehicleSchema = new Schema({
   description : {type: String, required : true},
   insuranceImgs: [{ type: String, required : true }],
   vehicleMainImg: {type : String, required : true},
-  vehicleImgs: [{ type: String, required : true }]
-  //location
+  vehicleImgs: [{ type: String, required : true }],
+  location : {type: String, required : true},
+  isAccepted : {type: Boolean, required : true},
   
 });
 

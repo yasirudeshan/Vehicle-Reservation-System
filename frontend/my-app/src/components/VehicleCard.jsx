@@ -21,6 +21,8 @@ const VehicleCard = () => {
         </div>
         <button className='bg-[#41A4FF] text-white rounded-md font-bold py-3 w-full'>Reserve Now</button>
     </div>
+
+    
   )
 }
 

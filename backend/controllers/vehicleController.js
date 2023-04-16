@@ -1,6 +1,6 @@
 const multer = require("multer");
 const Vehicle = require("../models/Vehicle");
-const AcceptedVehicle = require("../models/AcceptedVehicle");
+//const AcceptedVehicle = require("../models/AcceptedVehicle");
 const path = require("path");
 
 //image uploading path to diskStorage
@@ -30,7 +30,7 @@ const upload = multer({
 
 
 
-//add a vehicle
+//add a vehicle - postman checked. working well.
 exports.addVehicle = async(req, res) => {
 
     try {
@@ -43,6 +43,7 @@ exports.addVehicle = async(req, res) => {
     
             const newVehicle = new Vehicle({
                 ...req.body,
+                isAccepted: false,
                 vehicleMainImg: req.files.vehicleMainImg[0].filename,
                 insuranceImgs: req.files.insuranceImgs.map(file => file.filename),
                 vehicleImgs: req.files.vehicleImgs.map(file => file.filename)
@@ -59,7 +60,7 @@ exports.addVehicle = async(req, res) => {
 
 
 
-//get all vehicles - vehicle admin
+//get all vehicles - vehicle admin             //postman checked. working well.
 exports.getAllVehicle = async(req, res) => {
     try{
         const vehicles = await Vehicle.find();
@@ -70,10 +71,10 @@ exports.getAllVehicle = async(req, res) => {
 }
 
 
-//get all accepted vehicles - vehicle admin
-exports.getAllAcceptedVehicle = async(req, res) => {
+//get all pending vehicles - vehicle admin                    //change the name of this function
+exports.getAllPendingVehicle = async(req, res) => {
   try{
-      const vehicles = await AcceptedVehicle.find();
+      const vehicles = await Vehicle.find({isAccepted: false});
       res.send(vehicles);
   }catch (err) {
       res.status(500).send(err.message);
@@ -82,11 +83,11 @@ exports.getAllAcceptedVehicle = async(req, res) => {
 
 
 
-//get a specific vehicle by id - vehicle admin
+//get a specific vehicle by id - vehicle admin       postman checked. working well.
 exports.getSpecificvehicle = async(req, res) => {
     const {id} = req.params;
     try{
-        const specificVehicle = await Vehicle.findById(id);
+        const specificVehicle = await Vehicle.findById({_id: id});     //without _id, it will not work ???
         res.send(specificVehicle);
     }catch(err){
         res.status(500).send(err.message);
@@ -111,17 +112,17 @@ exports.deleteVehicle = async (req, res) => {
   };
 
 
-//send accepted vehicle details to another collection - vehicle admin 
+//accept a vehicle by isAccepted change to true - vehicle admin
 exports.acceptVehicle = async(req, res) => {
     const {id} = req.params;
     try{
         const vehicle = await Vehicle.findById(id);
-        const acceptedVehicleDetails = new acceptedVehicle({
-            ...vehicle._doc //spread operator to get all the properties of the vehicle object. use _doc to avoid unwanted metadata to copy to new object.
-        })
-        await acceptedVehicleDetails.save();
-        await Vehicle.findByIdAndDelete(id);
-        res.send(acceptedVehicleDetails);
+        if(!vehicle){
+            res.status(404).send("Vehicle not found");
+        }
+
+        const accept = await Vehicle.findByIdAndUpdate(id, {isAccepted: true}, {new: true});
+        res.send(accept);
 
         // Return success message
         return "Vehicle accepted successfully!";
@@ -151,7 +152,8 @@ exports.getMyVehicles = async(req, res) => {
 exports.getMyOneVehicle = async(req, res) => {
   const { id, userId } = req.params;
   try{
-      const myVehicle = await Vehicle.findOne({ $and: [{ id }, { userId }] });
+      const myVehicle = await Vehicle.findOne({ $and: [{ _id: id }, { userId }] });
+
       if(!myVehicle){
           res.status(404).send("Vehicle not found");
       }
@@ -166,10 +168,16 @@ exports.getMyOneVehicle = async(req, res) => {
 //edit a specific vehicle details - vehicle owner 
 exports.updateVehicle = async (req, res) => {
   const { id } = req.params;
-  const  update = {price, description } = req.body;   //add description
+  const  update = { price, description, location } = req.body;
+  update.isAccepted = false; 
 
   try {
-    const updatedVehicle = await AcceptedVehicle.findByIdAndUpdate(id, update, { new: true });
+    const updatedVehicle = await Vehicle.findByIdAndUpdate(id, update, { new: true });    //may be wrong
+    
+    if (!updatedVehicle) {
+      res.status(404).send('Vehicle not found');
+    }
+
     res.send(updatedVehicle);
   } catch (err) {
     res.status(500).send(err.message);
@@ -177,7 +185,6 @@ exports.updateVehicle = async (req, res) => {
 };
 
 
-//retrieve all vehicle details as a tourist
 
 
 

@@ -11,9 +11,9 @@ const ReservationSchema = new Schema({
     returnDate : {type: Date, required: true},
     price : {type: Number, required: true},
     vehicleOwnerId : {type: String, required: true},
-    status : {type: String, default : "Pending"},
+    transactionId : {type: String, required: true},
+    needDriver : {type: Boolean, required: true , default: false},
     
-
 });
 
-module.exports = mongoose.model("Reservation", ReservationSchema);
+module.exports = mongoose.model("vehiclereservation", ReservationSchema);
